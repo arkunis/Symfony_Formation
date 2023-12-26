@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coffre
+{% endblock %}
+
+{% block main %}
+	<article class="flex flex-col items-center">
+		{{ form_start(gestionForm) }}
+		<div class="mb-5">
+			{{ form_widget(gestionForm.nom_url) }}
+		</div>
+		<div class="mb-5">
+			{{ form_widget(gestionForm.identifiant) }}
+		</div>
+		<div class="mb-5">
+			{{ form_widget(gestionForm.plainPassword) }}
+		</div>
+		<button type="submit" class="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Ajouter le compte<button>
+				{{ form_end(gestionForm) }}
+			</article>
+
+			<hr>
+			{% for message in app.flashes('message') %}
+				{{message}}
+			{% endfor %}
+			<table class="w-[60%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mx-auto">
+				<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<th class="px-6 py-3">Nom / URL</th>
+					<th class="px-6 py-3">Identifiant</th>
+					<th class="px-6 py-3">Mot de passe</th>
+					<th class="px-6 py-3">Modifier / Supprimer</th>
+				</thead>
+				<tbody class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+					{% for compte in events %}
+						<tr>
+							<form method="post" class="flex flex-col">
+								<td class="px-6 py-4"><input type="text" class="text-black" name="NomUrl" value="{{ compte.NomUrl }}"/></td>
+								<td class="px-6 py-4"><input type="text" class="text-black" name="identifiant" value="{{ compte.identifiant }}"/></td>
+								<td class="px-6 py-4"><input type="text" class="text-black" name="password" value="{{ compte.password }}"/></td>
+								<td class="px-6 py-4 flex flex-col md:flex-row">
+									<button type="submit" name="modifier" value="{{ compte.id }}" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Modifier</button>
+									<button type="submit" name="supprimer" value="{{ compte.id }}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Supprimer</button>
+								</td>
+							</form>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		{% endblock %}

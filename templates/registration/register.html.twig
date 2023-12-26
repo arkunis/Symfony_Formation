@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block main %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+	<article class="flex flex-col items-center">
+		<h1 class="text-3xl mb-5">Inscription</h1>
+
+
+		{{ form_start(registrationForm) }}
+
+
+		<div class="mb-5">
+			{{ form_errors(registrationForm.email) }}
+			{{ form_widget(registrationForm.email) }}</div>
+		<div class="mb-5">
+			{{ form_errors(registrationForm.pseudo) }}
+			{{ form_widget(registrationForm.pseudo) }}</div>
+
+		<div class="mb-5 flex md:flex-row">
+			<div class="flex flex-col">
+				{{ form_errors(registrationForm.nom) }}
+				{{ form_widget(registrationForm.nom) }}
+			</div>
+			<div class="flex flex-col">
+				{{ form_errors(registrationForm.prenom) }}
+				{{ form_widget(registrationForm.prenom) }}
+			</div>
+		</div>
+
+		<div class="mb-5 flex md:flex-row">{{ form_widget(registrationForm.adresse) }}
+			{{ form_widget(registrationForm.adresse_2) }}</div>
+		<div class="mb-5 flex md:flex-row">{{ form_widget(registrationForm.postal_code) }}
+			{{ form_widget(registrationForm.ville) }}</div>
+
+
+		<div class="mb-5 flex flex-col">
+			{{ form_errors(registrationForm.plainPassword) }}
+			{{ form_errors(registrationForm.plainPassword.first) }}
+			{{ form_errors(registrationForm.plainPassword.second) }}
+			<div class="flex md:flex-row">
+				{{ form_widget(registrationForm.plainPassword.first) }}
+				{{ form_widget(registrationForm.plainPassword.second) }}
+			</div>
+		</div>
+
+		<div class="mb-5">{{ form_row(registrationForm.agreeTerms, {label: "Accepeter les terms "}) }}</div>
+
+		<button type="submit" class="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">S'inscrire</button>
+		{{ form_end(registrationForm) }}
+	</article>
+{% endblock %}
